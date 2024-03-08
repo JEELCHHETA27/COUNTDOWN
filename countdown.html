@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown Timer</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  h1 {
+    margin-top: 50px;
+    color: #2c3e50;
+  }
+  #countdown-settings {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #countdown-settings label {
+    font-size: 18px;
+    margin-right: 10px;
+  }
+  #countdown-settings input[type="datetime-local"] {
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  #countdown-settings button {
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  #countdown-settings button:hover {
+    background-color: #2980b9;
+  }
+  #countdown {
+    font-size: 36px;
+    margin-top: 50px;
+    color: #2ecc71;
+  }
+  .container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Countdown Timer</h1>
+  <div id="countdown-settings">
+    <label for="countdown-date">Countdown Target:</label>
+    <input type="datetime-local" id="countdown-date">
+    <button onclick="setCountdown()">Set Countdown</button>
+  </div>
+  <div id="countdown"></div>
+</div>
+
+<script>
+function updateCountdown(targetTime) {
+  var now = new Date().getTime();
+  
+  var distance = targetTime - now;
+  
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+  document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+  
+  if (distance < 0) {
+    clearInterval(interval);
+    document.getElementById("countdown").innerHTML = "EXPIRED";
+  }
+}
+
+function setCountdown() {
+  var countdownDate = document.getElementById("countdown-date").value;
+  var targetTime = new Date(countdownDate).getTime();
+  
+  if (isNaN(targetTime)) {
+    alert("Invalid date/time format.");
+    return;
+  }
+  
+  clearInterval(interval); 
+  interval = setInterval(function() {
+    updateCountdown(targetTime);
+  }, 1000);
+  
+  updateCountdown(targetTime);
+}
+
+var interval = setInterval(function() {
+  var now = new Date().getTime();
+  updateCountdown(now);
+}, 1000);
+</script>
+
+</body>
+</html>
