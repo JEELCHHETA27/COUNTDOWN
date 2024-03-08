@@ -7,4 +7,9 @@ Features:
 
 Easy Setup: Simply input your event details and the countdown is ready to go!
 
+Customizable Design: Choose from a range of sleek designs and customize colors to match your branding.
+
+Responsive: Works seamlessly on desktop, tablet, and mobile devices.
+
+Shareable Links: Share your countdown with friends and colleagues with ease.
 
